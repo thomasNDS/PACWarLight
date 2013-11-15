@@ -1,8 +1,9 @@
 package require Tk
 source utils.tcl
 source PAC.tcl
+source planete.tcl
 
-Generate_PAC_accessors Univers Univers_A "" value 1
+# Generate_PAC_accessors Univers Univers_A "" value 1
 
 inherit Univers_A Abstraction
 method Univers_A constructor {control} {
@@ -37,7 +38,11 @@ inherit Univers Control
 method Univers constructor {{parent ""}} {
 #   Univers_P ${objName}_P $objName
   Univers_A ${objName}_A $objName
-  this inherited $parent ${objName}_A ${objName}_P ""
+  this inherited $parent ${objName}_A "" ""
+}
+
+method Univers addPlanete {} {
+  Planete pl $objName
 }
 
 

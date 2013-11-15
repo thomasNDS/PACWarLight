@@ -1,6 +1,7 @@
 source univers.tcl
 source universMap.tcl
 source universMiniMap.tcl
+source introspact.tcl
 
 canvas .c
 pack .c -expand 1 -fill both
@@ -15,3 +16,6 @@ set univMiniMap(parent) "univ"
 
 univ append univMap
 univ append univMiniMap
+
+Introspact I
+I attach univ

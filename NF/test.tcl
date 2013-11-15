@@ -1,6 +1,15 @@
+source jeu.tcl
 source univers.tcl
-source universMultiple.tcl
+source universMap.tcl
+source universMiniMap.tcl
 
-# Univers ControlUniv
-# Univers_P PresUniv ControlUniv
-# Univers_A AbsUniv ControlUniv
+
+canvas .canv_game
+Jeu j .canv_game
+
+Univers univ j
+UniversMap univMap .canv_game univ
+UniversMiniMap univMiniMap .canv_game univ
+
+Introspact i
+i attach j

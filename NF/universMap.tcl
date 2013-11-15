@@ -2,7 +2,7 @@ package require Tk
 source utils.tcl
 source PAC.tcl
 
-Generate_PAC_accessors UniversMap "" UniversMap_P value 1
+# Generate_PAC_accessors UniversMap "" UniversMap_P value 1
 
 inherit UniversMap_P Presentation
 method UniversMap_P constructor {control can} {
@@ -27,7 +27,7 @@ method UniversMap_P constructor {control can} {
 inherit UniversMap Control
 method UniversMap constructor {can {parent ""}} {
   UniversMap_P ${objName}_P $objName $can
-  this inherited $parent ${objName}_A ${objName}_P ""
+  this inherited $parent "" ${objName}_P ""
 }
 
 

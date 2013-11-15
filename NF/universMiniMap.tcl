@@ -27,7 +27,7 @@ method UniversMiniMap_P constructor {control can} {
 inherit UniversMiniMap Control
 method UniversMiniMap constructor {can {parent ""}} {
   UniversMiniMap_P ${objName}_P $objName $can
-  this inherited $parent ${objName}_A ${objName}_P ""
+  this inherited $parent "" ${objName}_P ""
 }
 
 
