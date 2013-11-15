@@ -35,7 +35,7 @@ S Subscribe_after_Update_ship  ALEX {
 }
 
 
-S Subscribe_after_Start_fire                ALEX {
+S Subscribe_after_Start_fire ALEX {
 	.c delete Bullet
 	set radius 2
 	foreach {id x y vx vy} $this(L_bullets) {
