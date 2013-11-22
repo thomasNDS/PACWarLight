@@ -4,13 +4,15 @@ source universMap.tcl
 source universMiniMap.tcl
 
 
-canvas .canv_game
-pack .canv_game -expand 1 -fill both
-Jeu jeu .canv_game
+canvas .canv_gameMini
+canvas .canv_gameMap
+pack .canv_gameMini -expand 1 -fill both
+pack .canv_gameMap -expand 1 -fill both
+Jeu jeu .canv_gameMini .canv_gameMap
 
 Univers univ jeu
-UniversMap univMap .canv_game univ
-UniversMiniMap univMiniMap .canv_game univ
+UniversMap univMap .canv_gameMini univ
+UniversMiniMap univMiniMap .canv_gameMap univ
 
 jeu addTruc
 jeu addTruc
