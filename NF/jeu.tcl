@@ -8,6 +8,7 @@ source SWL_FC.tcl
 Generate_PAC_accessors Jeu Jeu_A Jeu_P swl 1
 Generate_PAC_accessors Jeu Jeu_A "" canvMini 1
 Generate_PAC_accessors Jeu Jeu_A "" canvMap 1
+Generate_PAC_accessors Jeu Jeu_A "" dictJoueurs 1
 
 
 inherit Jeu_A Abstraction
@@ -16,6 +17,8 @@ method Jeu_A constructor {control} {
   set this(swl) ""
   set this(canvMini) ""
   set this(canvMap) ""
+  
+  set this(dictJoueurs) [dict create]
 }
 
 inherit Jeu_P Presentation
@@ -34,6 +37,7 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   ${objName}_A set_canvMini $canvMini
   ${objName}_A set_canvMap $canvMap
   
+  
   this inherited $parent ${objName}_A ${objName}_P ""
 }
 
@@ -51,10 +55,14 @@ method Jeu createUnivers {canvas} {
 #   $objName append univ
 }
 
-method Jeu addTruc {} {
+method Jeu addPlanete {} {
   $this(children) addPlanete 
 #   UniversMap univMap $canvas 
 #   $objName append $univ
+}
+
+method Jeu addJoueur(nom color){
+  lappend [${objName}_A get_dictJoueurs] 
 }
 
 method Jeu addUnivers {univ} {
