@@ -92,7 +92,8 @@ proc Generate_PAC_accessors {C A P var {propagate 1}} {
 # C facet
  append cmd "method $C user_set_$var   {v} {this set_$var \$v}\n"
  append cmd "method $C system_set_$var {v} {this set_$var \$v}\n"
- append cmd "method $C get_$var { } {if {\$this(abstraction) != \"\"} {return \[\$this(abstraction) get_$var\]} else {return \$this($var)}}\n"
+ append cmd "method $C get_$var { } {
+ if {\$this(abstraction) != \"\"} {return \[\$this(abstraction) get_$var\]} else {return \$this($var)}}\n"
  append cmd "method $C set_$var {v} {if {\$this(abstraction)  != \"\"} {\$this(abstraction) set_$var \$v}; if {\$this(presentation)  != \"\"} {\$this(presentation) set_$var \[this get_$var\]}}\n"
  if {$propagate} {append cmd "Add_propagation $C set_$var\n"}
  
