@@ -29,9 +29,9 @@ Univers univ jeu
 UniversMap univMap .canv_gameMini univ
 UniversMiniMap univMiniMap .canv_gameMap univ
 
-jeu addTruc
-jeu addTruc
-jeu addTruc
+jeu addPlanete
+jeu addPlanete
+jeu addPlanete
 
 Introspact i
 i attach jeu
