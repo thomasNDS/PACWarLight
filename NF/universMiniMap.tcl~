@@ -7,7 +7,7 @@ source PAC.tcl
 inherit UniversMiniMap_P Presentation
 method UniversMiniMap_P constructor {control can} {
   this inherited $control
-  #$can create rect 50 0 100 50 -fill white
+  $can create rect 50 0 100 50 -fill white
 }
 
 inherit UniversMiniMap Control

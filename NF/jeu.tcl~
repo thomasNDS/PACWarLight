@@ -56,7 +56,7 @@ method Jeu createUnivers {canvas} {
 }
 
 method Jeu addPlanete {x y radius} {
-  $this(children) addPlanete $x $y $radius
+  $this(children) addPlanete $x $y
 }
 
 #method Jeu addJoueur(nom color){

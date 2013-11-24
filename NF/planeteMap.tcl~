@@ -12,8 +12,8 @@ method PlaneteMap_P constructor {control can x y radius} {
 }
 
 inherit PlaneteMap Control
-method PlaneteMap constructor {can {parent ""} x y radius} {
-  PlaneteMap_P ${objName}_P $objName $can $x $y $radius
+method PlaneteMap constructor {can {parent ""} x y } {
+  PlaneteMap_P ${objName}_P $objName $can $x $y
   this inherited $parent "" ${objName}_P ""
 }
 

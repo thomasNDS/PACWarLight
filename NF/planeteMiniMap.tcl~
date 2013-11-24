@@ -8,9 +8,9 @@ source SWL_FC.tcl
 inherit PlaneteMiniMap_P Presentation
 method PlaneteMiniMap_P constructor {control can x y radius} {
   this inherited $control
-  set radius [expr 0.33 * $radius]
-  set x [expr 0.33 * $x]
-  set y [expr 0.33 * $y]
+  set radius [expr 0.5 * $radius]
+  set x [expr 0.5 * $x]
+  set y [expr 0.5 * $y]
   $can create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill yellow
 }
 

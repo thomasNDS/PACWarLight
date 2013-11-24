@@ -28,7 +28,7 @@ method Univers constructor {{parent ""}} {
   ${objName}_A set_canvMap [$this(parent) getCanvMap]
 }
 
-method Univers addPlanete { x y radius } {
+method Univers addPlanete { x y radius} {
 #   Planete "planete[expr [this getCount] + 1]" $objName
   set namePlanete [[$this(parent) get_swl] generate_uid "Planete"]
   Planete $namePlanete $objName
