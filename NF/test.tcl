@@ -45,7 +45,7 @@ bind .f.canv_gameMap <Double-1>  " singleclick %x %y;"
      return
  }
 
-#jeu addPlanete 30 30 15
+jeu addPlanete 30 30 25
 #jeu addPlanete 40 40 15
 #jeu addPlanete 60 60 25
 

@@ -37,7 +37,7 @@ UniversMiniMap univMiniMap .f.canv_gameMap univ
 
 # events Listeners
 
-bind .f.canv_gameMap <1>  " singleclick %x %y;"
+bind .f.canv_gameMap <Double-1>  " singleclick %x %y;"
 
  proc singleclick {x y} {
      puts "new planet"
@@ -45,7 +45,7 @@ bind .f.canv_gameMap <1>  " singleclick %x %y;"
      return
  }
 
-#jeu addPlanete 30 30 15
+jeu addPlanete 30 30 15
 #jeu addPlanete 40 40 15
 #jeu addPlanete 60 60 25
 
