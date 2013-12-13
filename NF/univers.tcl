@@ -12,7 +12,6 @@ Generate_PAC_accessors Univers Univers_A "" canvMap 1
 inherit Univers_A Abstraction
 method Univers_A constructor {control} {
   this inherited $control
-  set this(countPlan) 0
   set this(canvMini) ""
   set this(canvMap) ""
 }
@@ -34,10 +33,3 @@ method Univers addPlanete { x y radius } {
   PlaneteMiniMap ${namePlanete}_MiniMap [${objName}_A get_canvMini] $namePlanete $x $y $radius
 }
 
-method Univers setCount {v} {
-  ${objName} set_countPlan $v
-}
-
-method Univers getCount {} {
-   return [${objName} get_countPlan]
-}
