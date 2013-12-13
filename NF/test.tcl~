@@ -27,7 +27,7 @@ Univers univ jeu
 UniversMap univMap .f.f2.canv_gameMini univ
 UniversMiniMap univMiniMap .f.canv_gameMap univ
 
-ToolKit toolKit jeu .f.f2
+  ToolKit toolKit jeu .f.f2
 
 # events Listeners
 

@@ -29,7 +29,7 @@ method Univers constructor {{parent ""}} {
 
 method Univers addPlanete { x y radius swl } {
   set namePlanete [[$this(parent) get_swl] generate_uid "Planete"]
-  Planete $namePlanete $objName $swl
+  Planete $namePlanete $objName
   PlaneteMap ${namePlanete}_Map [${objName}_A get_canvMap] $namePlanete $x $y $radius
   PlaneteMiniMap ${namePlanete}_MiniMap [${objName}_A get_canvMini] $namePlanete $x $y $radius
 }
