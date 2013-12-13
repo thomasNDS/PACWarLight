@@ -1,6 +1,7 @@
 source univers.tcl
 source universMap.tcl
 source universMiniMap.tcl
+source joueur.tcl
 source introspact.tcl
 source SWL_FC.tcl
 source ToolKit.tcl
@@ -41,25 +42,27 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   this inherited $parent ${objName}_A ${objName}_P ""
 }
 
-method Jeu createUnivers {canvas} {
-  pack $canvas -expand 1 -fill both
-
-  Univers univ $objName 
-  UniversMap univMap $canvas 
-  UniversMiniMap univMiniMap $canvas
-  set this(univers) univ
-
-  univ append univMap
-  univ append univMiniMap
-}
+# method Jeu createUnivers {canvas} {
+#   pack $canvas -expand 1 -fill both
+# 
+#   Univers univ $objName 
+#   UniversMap univMap $canvas 
+#   UniversMiniMap univMiniMap $canvas
+#   set this(univers) univ
+# 
+#   univ append univMap
+#   univ append univMiniMap
+# }
 
 method Jeu addPlanete {x y radius} {
   $this(univers) addPlanete $x $y $radius this(swl)
 }
 
-#method Jeu addJoueur(nom color){
- # lappend [${objName}_A get_dictJoueurs] 
-#}
+method Jeu addJoueur {nom color} {
+ set idJoueur [[${objName}_A get_swl] generate_uid "Joueur"]
+ Joueur $idJoueur $nom $color $objName
+ lappend [${objName}_A get_dictJoueurs] $nom
+}
 
 method Jeu addUnivers {univ} {
   $objName append $univ

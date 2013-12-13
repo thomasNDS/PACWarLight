@@ -28,9 +28,11 @@ UniversMap univMap .f.f2.canv_gameMini univ
 UniversMiniMap univMiniMap .f.canv_gameMap univ
 
 ToolKit toolKit jeu .f.f2
+  
+jeu addJoueur toto bleu
+jeu addJoueur titi bleu
 
 # events Listeners
-
 bind .f.canv_gameMap <Double-1>  " singleclick %x %y;"
 
  proc singleclick {x y} {
@@ -38,6 +40,8 @@ bind .f.canv_gameMap <Double-1>  " singleclick %x %y;"
      jeu addPlanete $x $y 15
      return
  }
+ 
+
 
 #jeu addPlanete 30 30 25
 
