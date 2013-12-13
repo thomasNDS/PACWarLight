@@ -13,11 +13,16 @@ method Joueur_A constructor {control} {
   set this(color) ""
 }
 
+# PRESENTATION ==============================================
+inherit Joueur_P Presentation
+	method Joueur_P constructor {control} {
+}
+
 # CONTROLLER ================================================
 inherit Joueur Control
 method Joueur constructor {nom color {parent ""}} {
   Joueur_A ${objName}_A $objName
   ${objName}_A set_nom $nom
   ${objName}_A set_color $color
-  this inherited $parent ${objName}_A ${objName}_P ""
+  this inherited $parent ${objName}_A "" ""
 }
