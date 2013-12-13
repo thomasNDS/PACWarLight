@@ -29,6 +29,7 @@ inherit Jeu_P Presentation
 # CONTROLLER ================================================
 inherit Jeu Control
 method Jeu constructor {canvMini canvMap {parent ""}} {
+  set this(player) 1
   SWL_FC swl
   set this(swl) swl 
   set this(univers) "univ"
@@ -79,4 +80,28 @@ method Jeu getCanvMini {} {
 method Jeu getCanvMap {} {
    return [${objName} get_canvMap]
 }
+
+# stop la selection de planette ou vaisseaux
+method Jeu stopSelect {} {
+   puts "select planete"
+}
+#selection de planette
+method Jeu selectPlanete { } {
+   puts "select planete"
+}
+#selection de vaisseaux
+method Jeu selectShip { } {
+ puts "select ship"
+}
+#selection de joueurs
+method Jeu selectPlayer { player } {
+ set this(player) $player
+}
+#Lance le jeu
+method Jeu startGame { start } {
+ puts "start"
+}
+
+
+
 

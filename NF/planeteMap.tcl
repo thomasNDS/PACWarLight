@@ -8,27 +8,23 @@ inherit PlaneteMap_P Presentation
 method PlaneteMap_P constructor {control can x y radius} {
   	this inherited $control
 
-	proc update_drag {x y can control} {
-		global dragged_object
-		global last_x
-		global last_y
+	 set this(id) [$can create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill yellow -tags [list background]]
+	$can bind background <Button-1>  "set dragged_object object; set last_x %x; set last_y %y"
+	set this(dragged_object) ""; set this(last_x) 0; set this(last_y) 0; 
+	$can bind $this(id) <Button-1>  "set this(dragged_object) $this(id); set this(last_x) %x; set this(last_y) %y;"
+	bind $can <B1-Motion> "${objName} update_drag %x %y $can $control"
+}
+method PlaneteMap_P update_drag {x y can control} {
 
-			if {$x >0 && $dragged_object != ""} {
-				 set dx [expr $x - $last_x]
-				 set dy [expr $y - $last_y]
-				 $can move $dragged_object $dx $dy
+			#if {$x >0 && $this(dragged_object) != ""} {
+				 set dx [expr $x - $this(last_x)]
+				 set dy [expr $y - $this(last_y)]
+				 $can move $this(id) $dx $dy
+				 $control update_drag_map $dx $dy
 				 set last_x $x
 				 set last_y $y
-				}
-		$control update_drag_map $dx $dy
+			#	}
 	}
-
-	 set id [$can create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill yellow -tags [list background]]
-	$can bind background <Button-1>  "set dragged_object object; set last_x %x; set last_y %y"
-	set dragged_object ""; set last_x ""; set last_y ""; 
-	$can bind $id <Button-1>  "set dragged_object $id; set last_x %x; set last_y %y;"
-	bind $can <B1-Motion> "update_drag %x %y $can $control"
-}
 
 # CONTROLLER ================================================
 inherit PlaneteMap Control

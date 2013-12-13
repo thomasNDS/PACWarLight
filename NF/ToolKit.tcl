@@ -16,6 +16,7 @@ method ToolKit_P constructor {control can} {
 	set this(control) $control
 	set this(name) ""
 	set this(buttonSelect) 1
+	set this(stateGame) 0
 
 	#Listener de boutons	  
 	pack [label .f.f2.lab2 -text "==== Joueurs ====\n" -bg green] -side top
@@ -33,8 +34,10 @@ method ToolKit_P constructor {control can} {
 	pack .f.f2.butselectPlanete -side top
 	pack [label .f.f2.labNo -text " \nSelection: " -bg green ] -side top 
 	pack [label .f.f2.selection -text "rien" -bg green ] -side top 
+	button .f.f2.start -text "start" -bg blue -command [list $objName startGame 1 ]
+	pack .f.f2.start -side top
 }
-#selection de vaisseaux
+#Selection de vaisseaux
 method ToolKit_P selectShip {} {
 	pack .f.f2.butAnnulate -side top 
 	puts "vaisseau"
@@ -43,7 +46,7 @@ method ToolKit_P selectShip {} {
 	.f.f2.butselectShip configure -bg red
 	.f.f2.butselectPlanete configure -bg green
 }
-# stop la selection de planette ou vaisseaux
+#Stop la selection de planette ou vaisseaux
 method ToolKit_P annulateSelect {} {
 	pack forget .f.f2.butAnnulate	
 	.f.f2.selection configure -text "rien"
@@ -51,7 +54,7 @@ method ToolKit_P annulateSelect {} {
 	.f.f2.butselectShip configure -bg green
 	.f.f2.butselectPlanete configure -bg green
 }
-#selection de planette
+#Selection de planette
 method ToolKit_P selectPlanet {} {
 	pack .f.f2.butAnnulate -side top 	
 	.f.f2.selection configure -text "planette"
@@ -59,12 +62,17 @@ method ToolKit_P selectPlanet {} {
 	.f.f2.butselectShip configure -bg green
 	.f.f2.butselectPlanete configure -bg red
 }
-#selection de joueurs
+#Selection de joueurs
 method ToolKit_P selectPlayer { player } {
  $this(control) selectPlayer $player
  .f.f2.butj$player configure -bg red
  .f.f2.butj$this(buttonSelect) configure -bg green
  set this(buttonSelect) $player
+}
+#Lance le jeu
+method ToolKit_P startGame { start } {
+ set this(stateGame) $start
+ $this(control) startGame $start
 }
 
 # CONTROLLER ================================================
@@ -75,23 +83,30 @@ method ToolKit constructor {{parent ""} can } {
   this inherited $parent ${objName}_A ${objName}_P ""
   set this(jeu) $parent
 }
-
 # stop la selection de planette ou vaisseaux
 method ToolKit stopSelect {} {
    puts "select planete"
+   $this(jeu) stopSelect
 }
-
 #selection de planette
 method ToolKit selectPlanete { } {
    puts "select planete"
+   $this(jeu) selectPlanete
 }
 #selection de vaisseaux
 method ToolKit selectShip { } {
  puts "select ship"
+ $this(jeu) selectShip
 }
 #selection de joueurs
 method ToolKit selectPlayer { player } {
  puts "select $player"
+ $this(jeu) selectPlayer $player
+}
+#Lance le jeu
+method ToolKit startGame { start } {
+ puts "start"
+ $this(jeu) startGame $start
 }
 
 
