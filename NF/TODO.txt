@@ -1,0 +1,2 @@
+AddPlanet -> Utiliser le swl pour lié au noyau
+AddShip -> Idem

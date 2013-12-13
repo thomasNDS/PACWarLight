@@ -3,6 +3,9 @@ source PAC.tcl
 source planete.tcl
 source planeteMap.tcl
 source planeteMiniMap.tcl
+source vaisseau.tcl
+source vaisseauMap.tcl
+source vaisseauMiniMap.tcl
 
 Generate_PAC_accessors Univers Univers_A "" countPlan 1
 Generate_PAC_accessors Univers Univers_A "" canvMini 1
@@ -12,7 +15,6 @@ Generate_PAC_accessors Univers Univers_A "" canvMap 1
 inherit Univers_A Abstraction
 method Univers_A constructor {control} {
   this inherited $control
-  set this(countPlan) 0
   set this(canvMini) ""
   set this(canvMap) ""
 }
@@ -34,10 +36,9 @@ method Univers addPlanete { x y radius swl } {
   PlaneteMiniMap ${namePlanete}_MiniMap [${objName}_A get_canvMini] $namePlanete $x $y $radius
 }
 
-method Univers setCount {v} {
-  ${objName} set_countPlan $v
-}
-
-method Univers getCount {} {
-   return [${objName} get_countPlan]
+method Univers addVaisseau { owner x y radius } {
+  set idShip [[$this(parent) get_swl] generate_uid "Vaisseau"]
+  Vaisseau $idShip $owner $objName
+  VaisseauMap ${idShip}_Map [${objName}_A get_canvMap] $idShip $owner $x $y $radius
+  VaisseauMiniMap ${idShip}_MiniMap [${objName}_A get_canvMini] $idShip $owner $x $y $radius
 }
