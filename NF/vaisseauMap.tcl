@@ -4,8 +4,8 @@ source PAC.tcl
 source SWL_FC.tcl
 
 # PRESENTATION ==============================================
-inherit PlaneteMap_P Presentation
-method PlaneteMap_P constructor {control can x y radius} {
+inherit VaisseauMap_P Presentation
+method VaisseauMap_P constructor {control can owner x y radius} {
   	this inherited $control
 
 	proc update_drag {x y can control} {
@@ -23,23 +23,23 @@ method PlaneteMap_P constructor {control can x y radius} {
 		$control update_drag_map $dx $dy
 	}
 
-	 set id [$can create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill yellow -tags [list background]]
+	 set id [$can create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill green -tags [list background]]
 	$can bind background <Button-1>  "set dragged_object object; set last_x %x; set last_y %y"
-	set dragged_object ""; set last_x ""; set last_y ""; 
+	set dragged_object ""; set last_x ""; set last_y "";
 	puts $id
 	$can bind $id <Button-1>  "set dragged_object $id; set last_x %x; set last_y %y;"
 	bind $can <B1-Motion> "update_drag %x %y $can $control"
 }
 
 # CONTROLLER ================================================
-inherit PlaneteMap Control
-method PlaneteMap constructor {can {parent ""} x y radius} {
+inherit VaisseauMap Control
+method VaisseauMap constructor {can {parent ""} owner x y radius} {
   set this(parent) $parent
-  PlaneteMap_P ${objName}_P $objName $can $x $y $radius
+  VaisseauMap_P ${objName}_P $objName $can $owner $x $y $radius
   this inherited $parent "" ${objName}_P ""
 }
 
-method PlaneteMap update_drag_map { x y } {
+method VaisseauMap update_drag_map { x y } {
 	$this(parent) update_drag $x $y 
 }
 

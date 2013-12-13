@@ -35,10 +35,17 @@ jeu addJoueur titi bleu
 # events Listeners
 
 bind .f.canv_gameMap <Double-1>  " singleclick %x %y;"
+bind .f.canv_gameMap <Double-3> " addVaisseau %x %y;"
 
  proc singleclick {x y} {
      puts "new planet"
      jeu addPlanete $x $y 15
+     return
+ }
+ 
+ proc addVaisseau {x y} {
+     puts "new vaisseau"
+     jeu addVaisseau $x $y 10
      return
  }
  

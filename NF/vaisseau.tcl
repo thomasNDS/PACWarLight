@@ -1,7 +1,3 @@
-package require Tk
-source utils.tcl
-source PAC.tcl
-
 Generate_PAC_accessors Vaisseau Vaisseau_A Vaisseau_P value 1
 
 # ABSTRACTION ===============================================
@@ -10,15 +6,14 @@ method Vaisseau_A constructor {control} {
   this inherited $control
 }
 
-# PRESENTATION ==============================================
-inherit Vaisseau_P Presentation
-method Vaisseau_P constructor {control} {
-}
 
 # CONTROLLER ================================================
 inherit Vaisseau Control
-method Vaisseau constructor {{parent ""}} {
-  Vaisseau_P ${objName}_P $objName
+method Vaisseau constructor {owner {parent ""}} {
   Vaisseau_A ${objName}_A $objName
-  this inherited $parent ${objName}_A ${objName}_P ""
+  this inherited $parent ${objName}_A "" ""
+}
+
+method Vaisseau update_drag { x y } {
+	${objName}_MiniMap update_drag $x $y
 }

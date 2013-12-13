@@ -58,6 +58,10 @@ method Jeu addPlanete {x y radius} {
   $this(univers) addPlanete $x $y $radius
 }
 
+method Jeu addVaisseau {x y radius} {
+  $this(univers) addVaisseau "toto" $x $y $radius
+}
+
 method Jeu addJoueur {nom color} {
  set idJoueur [[${objName}_A get_swl] Add_new_player "Joueur"]
  Joueur $idJoueur $nom $color $objName
