@@ -59,7 +59,7 @@ method Jeu addPlanete {x y radius} {
 }
 
 method Jeu addJoueur {nom color} {
- set idJoueur [[${objName}_A get_swl] generate_uid "Joueur"]
+ set idJoueur [[${objName}_A get_swl] Add_new_player "Joueur"]
  Joueur $idJoueur $nom $color $objName
  lappend [${objName}_A get_dictJoueurs] $nom
 }
