@@ -1,4 +1,3 @@
-# package require Tk
 source utils.tcl
 source PAC.tcl
 source planete.tcl
@@ -9,6 +8,7 @@ Generate_PAC_accessors Univers Univers_A "" countPlan 1
 Generate_PAC_accessors Univers Univers_A "" canvMini 1
 Generate_PAC_accessors Univers Univers_A "" canvMap 1
 
+# ABSTRACTION ===============================================
 inherit Univers_A Abstraction
 method Univers_A constructor {control} {
   this inherited $control
@@ -17,10 +17,9 @@ method Univers_A constructor {control} {
   set this(canvMap) ""
 }
 
-
+# CONTROLLER ================================================
 inherit Univers Control
 method Univers constructor {{parent ""}} {
-#   Univers_P ${objName}_P $objName
   Univers_A ${objName}_A $objName
   this inherited $parent ${objName}_A "" ""
   
@@ -29,12 +28,10 @@ method Univers constructor {{parent ""}} {
 }
 
 method Univers addPlanete { x y radius } {
-#   Planete "planete[expr [this getCount] + 1]" $objName
   set namePlanete [[$this(parent) get_swl] generate_uid "Planete"]
   Planete $namePlanete $objName
   PlaneteMap ${namePlanete}_Map [${objName}_A get_canvMap] $namePlanete $x $y $radius
   PlaneteMiniMap ${namePlanete}_MiniMap [${objName}_A get_canvMini] $namePlanete $x $y $radius
-#   this setCount [expr [this getCount] + 1]
 }
 
 method Univers setCount {v} {

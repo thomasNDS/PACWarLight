@@ -3,11 +3,10 @@ source utils.tcl
 source PAC.tcl
 source SWL_FC.tcl
 
-# Generate_PAC_accessors UniversMap "" UniversMap_P value 1
-
+# PRESENTATION ==============================================
 inherit PlaneteMap_P Presentation
 method PlaneteMap_P constructor {control can x y radius} {
-  this inherited $control
+  	this inherited $control
 
 	proc update_drag {x y can control} {
 		global dragged_object
@@ -21,7 +20,7 @@ method PlaneteMap_P constructor {control can x y radius} {
 				 set last_x $x
 				 set last_y $y
 				}
-	$control update_drag_map $dx $dy
+		$control update_drag_map $dx $dy
 	}
 
 	 set id [$can create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill yellow -tags [list background]]
@@ -31,13 +30,13 @@ method PlaneteMap_P constructor {control can x y radius} {
 	bind $can <B1-Motion> "update_drag %x %y $can $control"
 }
 
+# CONTROLLER ================================================
 inherit PlaneteMap Control
 method PlaneteMap constructor {can {parent ""} x y radius} {
   set this(parent) $parent
   PlaneteMap_P ${objName}_P $objName $can $x $y $radius
   this inherited $parent "" ${objName}_P ""
 }
-
 
 method PlaneteMap update_drag_map { x y } {
 	$this(parent) update_drag $x $y 
