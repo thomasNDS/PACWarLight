@@ -34,7 +34,6 @@ method ToolKit_P constructor {control can} {
 	pack [label .f.f2.labNo -text " \nSelection: " -bg green ] -side top 
 	pack [label .f.f2.selection -text "rien" -bg green ] -side top 
 }
-#selection de vaisseaux
 method ToolKit_P selectShip {} {
 	pack .f.f2.butAnnulate -side top 
 	puts "vaisseau"
