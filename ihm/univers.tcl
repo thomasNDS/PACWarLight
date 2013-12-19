@@ -54,7 +54,7 @@ method Univers stepBeginComputation {L_bullets} {
   set radius 2
 	foreach {id x y vx vy} $L_bullets {
 		 [${objName}_A get_canvMap] create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill black -tags [list Bullet $id]
-		 [${objName}_A get_canvMini] create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill black -tags [list Bullet $id]
+		 [${objName}_A get_canvMini] create oval [expr ($x - $radius)/3] [expr ($y - $radius) /3] [expr ($x + $radius)/3] [expr ($y + $radius)/3] -fill black -tags [list Bullet $id]
 		}
 }
   
@@ -62,7 +62,7 @@ method Univers stepComputation {L_bullets} {
   set radius 2
   foreach {id x y vx vy} $L_bullets {
 	    [${objName}_A get_canvMap] coords $id [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius]
-	    [${objName}_A get_canvMini] coords $id [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius]
+	    [${objName}_A get_canvMini] coords $id [expr ($x - $radius) / 3] [expr ($y - $radius) / 3] [expr ($x + $radius) / 3 ] [expr ($y + $radius) /3 ]
 	  }
 }
 
