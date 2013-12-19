@@ -1,16 +1,19 @@
 
 # PRESENTATION ==============================================
 inherit PlaneteMap_P Presentation
-method PlaneteMap_P constructor {control can scale x y radius densite} {
+
+method PlaneteMap_P constructor {control can idPlanet scale x y radius densite} {
 	set this(scale) 1
 	set this(x) $x
 	set this(y) $y
-  	this inherited $control
+ 	
 	set this(canvas) $can
 	set this(control) $control
 
-	 set this(id) [$this(canvas) create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill yellow -tags [list background]]
+	set this(id) [$this(canvas) create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill yellow -tags [lappend [list background] $idPlanet]]
 	$this(canvas) bind $this(id) <Button-1> [list $objName start_drag %x %y]
+
+	this inherited $control
 }
 
 #start the drag of the planet
@@ -46,7 +49,7 @@ method PlaneteMap_P update_position { x y } {
 inherit PlaneteMap Control
 method PlaneteMap constructor {can {parent ""} x y radius} {
   set this(parent) $parent
-  PlaneteMap_P ${objName}_P $objName $can 1 $x $y $radius 1
+  PlaneteMap_P ${objName}_P $objName $can $parent 1 $x $y $radius 1
   this inherited $parent "" ${objName}_P ""
 }
 

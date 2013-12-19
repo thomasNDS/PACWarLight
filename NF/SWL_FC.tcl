@@ -11,6 +11,7 @@ method SWL_FC constructor {} {
 	set this(uid) 0
 	set this(dt)  0.05
 	set this(simulation_step) 10
+	set this(nbCollisionPlaneteAccepted) 3
 	
 	this reset
 }
@@ -26,8 +27,9 @@ method SWL_FC reset {} {
 	set this(D_planets) [dict create]
 	set this(D_players) [dict create]
 	set this(L_bullets) [list]
-	
 	set this(interupt_simulation) 0
+	#Création du dict pour savoir les coups que prennent les planetes
+	set this(collisionPlanete) [dict create]
 }
 
 #___________________________________________________________________________________________________________________________________________
@@ -45,14 +47,12 @@ method SWL_FC Stop_simulation {} {set this(interupt_simulation) 1}
 #___________________________________________________________________ Simulation ____________________________________________________________
 #___________________________________________________________________________________________________________________________________________
 method SWL_FC Start_fire {} {
-	puts "dans le swl"
 	set this(interupt_simulation) 0
 	# Initialize bullets
 	set this(L_bullets) [list]
+	
 	dict for {id_player D_player} $this(D_players) {
-		 puts "forJoueur"
 		 dict for {id_ship D_ship} [dict get $D_player D_ships] {
-			 puts "forVaiseau"
 			 set cos_x [expr cos([dict get $D_ship fire_angle])]
 			 set sin_x [expr sin([dict get $D_ship fire_angle])]
 			 set x  [expr [dict get $D_ship x] + 1.1 * $cos_x * [dict get $D_ship radius]]
@@ -75,6 +75,24 @@ method SWL_FC Collision_with_planets {x y} {
 		 set DY [expr [dict get $D_planet y] - $y]
 		 set distance [expr sqrt($DX * $DX + $DY * $DY)]
 		 if {$distance <= [dict get $D_planet radius]} {
+			 set nbCol 0
+			 #Si la planete a deja pris des coups on va augmenter ce
+			 #nombre, sinon on va le crée et le mettre à un
+			 if {[dict exists $this(collisionPlanete) $id_planet]} {
+			  set nbCol [dict get $this(collisionPlanete) $id_planet]
+			  puts "$id_planet existe ! $nbCol"
+			  incr nbCol 
+			 } else {
+			  set nbCol 1
+			  dict set this(collisionPlanete) $id_planet $nbCol
+			 }
+			 puts "nombres collision pour : $id_planet = $nbCol"
+			 if {$nbCol == $this(nbCollisionPlaneteAccepted)} {
+			  puts $id_planet
+			  this Destroy_planet $id_planet
+			 }
+			 
+			 dict set this(collisionPlanete) $id_planet $nbCol
 			 return 1
 			}
 		}
