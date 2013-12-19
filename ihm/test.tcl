@@ -64,7 +64,7 @@ bind .f.canv_gameMap <Double-3> " addVaisseau %x %y;"
  
 
 
-#jeu addPlanete 30 30 25
+jeu addPlanete 30 30 25
 
 Introspact i
 i attach jeu

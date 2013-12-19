@@ -13,8 +13,9 @@ method Planete constructor {{parent ""}} {
   this inherited $parent ${objName}_A "" ""
 }
 
-method Planete update_drag { x y } {
-	${objName}_MiniMap update_drag $x $y
+method Planete update_drag { dx dy } {
+	${objName}_MiniMap update_drag $dx $dy
+	${objName}_Map update_drag $dx $dy
 }
 
 

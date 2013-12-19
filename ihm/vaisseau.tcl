@@ -14,6 +14,7 @@ method Vaisseau constructor {owner {parent ""}} {
   this inherited $parent ${objName}_A "" ""
 }
 
-method Vaisseau update_drag { x y } {
-	${objName}_MiniMap update_drag $x $y
+method Vaisseau update_drag { dx dy } {
+	${objName}_MiniMap update_drag $dx $dy
+	${objName}_Map update_drag $dx $dy
 }
