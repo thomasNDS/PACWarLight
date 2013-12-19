@@ -1,5 +1,3 @@
-source utils.tcl
-source PAC.tcl
 source planete.tcl
 source planeteMap.tcl
 source planeteMiniMap.tcl

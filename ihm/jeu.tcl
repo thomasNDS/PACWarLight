@@ -2,8 +2,6 @@ source univers.tcl
 source universMap.tcl
 source universMiniMap.tcl
 source joueur.tcl
-source introspact.tcl
-source SWL_FC.tcl
 source ToolKit.tcl
 
 Generate_PAC_accessors Jeu Jeu_A Jeu_P swl 1

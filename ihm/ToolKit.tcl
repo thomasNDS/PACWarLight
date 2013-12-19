@@ -1,7 +1,3 @@
-package require Tk
-source utils.tcl
-source PAC.tcl
-
 Generate_PAC_accessors ToolKit ToolKit_A ToolKit_P value 1
 
 # ABSTRACTION ===============================================

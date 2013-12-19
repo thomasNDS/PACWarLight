@@ -1,8 +1,18 @@
+package require Tk
+source utils.tcl
+source  ../NF/gml_Object.tcl
+source ../NF/PAC.tcl
+source ../NF/introspact.tcl
+source ../NF/SWL_FC.tcl
+source ../NF/utils.tcl
+
 source jeu.tcl
 source univers.tcl
 source universMap.tcl
 source universMiniMap.tcl
-package require Tk
+
+
+
 
 set width 800 ;# in pixels
 set height 600 ;# in pixels

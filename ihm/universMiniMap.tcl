@@ -1,7 +1,3 @@
-package require Tk
-source utils.tcl
-source PAC.tcl
-
 # PRESENTATION ==============================================
 inherit UniversMiniMap_P Presentation
 method UniversMiniMap_P constructor {control can} {

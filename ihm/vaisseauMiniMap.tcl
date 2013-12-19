@@ -1,8 +1,3 @@
-package require Tk
-source utils.tcl
-source PAC.tcl
-source SWL_FC.tcl
-
 # Vue minimap d'un vaisseau
 
 #PRESENTATION ====================================================

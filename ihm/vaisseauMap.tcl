@@ -1,8 +1,3 @@
-package require Tk
-source utils.tcl
-source PAC.tcl
-source SWL_FC.tcl
-
 # PRESENTATION ==============================================
 inherit VaisseauMap_P Presentation
 method VaisseauMap_P constructor {control can owner x y radius color} {

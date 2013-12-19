@@ -1,6 +1,3 @@
-package require Tk
-source utils.tcl
-source PAC.tcl
 
 # PRESENTATION ==============================================
 inherit UniversMap_P Presentation

@@ -1,7 +1,3 @@
-package require Tk
-source utils.tcl
-source PAC.tcl
-source SWL_FC.tcl
 
 # PRESENTATION ==============================================
 inherit PlaneteMap_P Presentation
