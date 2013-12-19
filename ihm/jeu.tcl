@@ -63,6 +63,11 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
     puts "Destroy ship $id";
   }
   
+  swl Subscribe_after_Destroy_planet destroyPlanetID {
+    "univ" destroyPlanet $id
+    puts "Destroy planet $id";
+  }
+  
 }
 
 method Jeu addPlanete {x y radius density} {

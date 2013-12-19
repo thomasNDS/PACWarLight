@@ -4,13 +4,13 @@
 #PRESENTATION ====================================================
 
 inherit PlaneteMiniMap_P Presentation
-method PlaneteMiniMap_P constructor {control can x y radius} {
+method PlaneteMiniMap_P constructor {control can parent x y radius} {
   this inherited $control
   set radius [expr 0.33 * $radius]
   set x [expr 0.33 * $x]
   set y [expr 0.33 * $y]
   set this(canvas) $can
-  set this(planete) [$this(canvas) create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill yellow ]
+  set this(planete) [$this(canvas) create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill yellow -tags $parent]
 }
 
 method PlaneteMiniMap_P update_position { x y } {
@@ -20,7 +20,7 @@ method PlaneteMiniMap_P update_position { x y } {
 # CONTROLLER ====================================================
 inherit PlaneteMiniMap Control
 method PlaneteMiniMap constructor {can {parent ""} x y radius} {
-  PlaneteMiniMap_P ${objName}_P $objName $can $x $y $radius
+  PlaneteMiniMap_P ${objName}_P $objName $can $parent $x $y $radius
   this inherited $parent "" ${objName}_P ""
 }
 

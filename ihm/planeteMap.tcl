@@ -1,10 +1,10 @@
 
 # PRESENTATION ==============================================
 inherit PlaneteMap_P Presentation
-method PlaneteMap_P constructor {control can x y radius} {
+method PlaneteMap_P constructor {control can idPlanet x y radius} {
   	this inherited $control
 
-	 set this(id) [$can create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill yellow -tags [list background]]
+	 set this(id) [$can create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill yellow -tags [lappend [list background] $idPlanet]]
 	$can bind background <Button-1>  "set dragged_object object; set last_x %x; set last_y %y"
 	set this(dragged_object) ""; set this(last_x) 0; set this(last_y) 0; 
 	$can bind $this(id) <Button-1>  "set this(dragged_object) $this(id); set this(last_x) %x; set this(last_y) %y;"
@@ -26,7 +26,7 @@ method PlaneteMap_P update_drag {x y can control} {
 inherit PlaneteMap Control
 method PlaneteMap constructor {can {parent ""} x y radius} {
   set this(parent) $parent
-  PlaneteMap_P ${objName}_P $objName $can $x $y $radius
+  PlaneteMap_P ${objName}_P $objName $can $parent $x $y $radius
   this inherited $parent "" ${objName}_P ""
 }
 

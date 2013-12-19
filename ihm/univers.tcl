@@ -39,7 +39,7 @@ method Univers addVaisseau { owner x y radius color} {
   #Obtention id avec ajout dans swl
   set idShip [[$this(parent) get_swl] Add_new_ship $owner $x $y $radius]
   #Update du vaisseau dans swl pour crée l'angle et la velocité
-  [$this(parent) get_swl] Update_ship $owner $idShip [dict create fire_velocity 20 fire_angle 1]
+  [$this(parent) get_swl] Update_ship $owner $idShip [dict create fire_velocity 30 fire_angle 1]
   #Création de l'agent vaisseau
   Vaisseau $idShip $owner $objName
   VaisseauMap ${idShip}_Map [${objName}_A get_canvMap] $idShip $owner $x $y $radius $color
@@ -65,7 +65,11 @@ method Univers stepComputation {L_bullets} {
 }
 
 method Univers destroyShip {idShip} {
-#   puts $idShip
   [${objName}_A get_canvMap] delete $idShip
   [${objName}_A get_canvMini] delete $idShip
+}
+
+method Univers destroyPlanet {idPlanet} {
+  [${objName}_A get_canvMap] delete $idPlanet
+  [${objName}_A get_canvMini] delete $idPlanet
 }
