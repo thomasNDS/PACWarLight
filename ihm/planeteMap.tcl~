@@ -57,8 +57,8 @@ method PlaneteMap update_drag { x y } {
 	${objName}_P update_position $x $y
 }
 
-method PlaneteMap detect_drag_map { dx dy x y } {
-	$this(parent) update_drag $dx $dy $x $y 
+method PlaneteMap detect_drag_map { x y } {
+	$this(parent) update_drag $x $y 
 }
 
 
