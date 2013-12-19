@@ -43,6 +43,15 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   ${objName}_A set_canvMini $canvMini
   ${objName}_A set_canvMap $canvMap
   ${objName}_A set_player $player
+  
+  swl Subscribe_after_Start_fire startID {
+    puts "liste de bullets : $this(L_bullets)"
+    "univ" stepBeginComputation $this(L_bullets)
+  }
+  
+  swl Subscribe_after_Compute_a_simulation_step computeID {
+    "univ" stepComputation $this(L_bullets)
+  }
 
   this inherited $parent ${objName}_A ${objName}_P ""
 }
@@ -123,6 +132,11 @@ method Jeu selectPlayer { player } {
 #Lance le jeu
 method Jeu startGame { start } {
  puts "start"
+ [${objName}_A get_swl] Start_fire
+}
+
+method Jeu startFire {} {
+  [${objName}_A get_swl] Start_fire
 }
 
 

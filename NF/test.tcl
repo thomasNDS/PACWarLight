@@ -36,9 +36,10 @@ jeu addJoueur "titi" "red"
 bind .f.canv_gameMap <Double-1>  " singleclick %x %y;"
 bind .f.canv_gameMap <Double-3> " addVaisseau %x %y;"
 
+
  proc singleclick {x y} {
      puts "new planet"
-     jeu addPlanete $x $y 15 5
+     jeu addPlanete $x $y 15 30
      return
  }
  

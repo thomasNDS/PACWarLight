@@ -45,11 +45,14 @@ method SWL_FC Stop_simulation {} {set this(interupt_simulation) 1}
 #___________________________________________________________________ Simulation ____________________________________________________________
 #___________________________________________________________________________________________________________________________________________
 method SWL_FC Start_fire {} {
+	puts "dans le swl"
 	set this(interupt_simulation) 0
 	# Initialize bullets
 	set this(L_bullets) [list]
 	dict for {id_player D_player} $this(D_players) {
+		 puts "forJoueur"
 		 dict for {id_ship D_ship} [dict get $D_player D_ships] {
+			 puts "forVaiseau"
 			 set cos_x [expr cos([dict get $D_ship fire_angle])]
 			 set sin_x [expr sin([dict get $D_ship fire_angle])]
 			 set x  [expr [dict get $D_ship x] + 1.1 * $cos_x * [dict get $D_ship radius]]
@@ -116,6 +119,7 @@ method SWL_FC Compute_acceleration_at {x y} {
 
 #___________________________________________________________________________________________________________________________________________
 method SWL_FC Compute_a_simulation_step {} {
+# 	puts "dans le compute"
 	# Compute bullets moves
 	set new_L_bullets [list]
 	foreach {id x y vx vy} $this(L_bullets) {
