@@ -10,6 +10,7 @@ Generate_PAC_accessors Jeu Jeu_A Jeu_P swl 1
 Generate_PAC_accessors Jeu Jeu_A "" canvMini 1
 Generate_PAC_accessors Jeu Jeu_A "" canvMap 1
 Generate_PAC_accessors Jeu Jeu_A "" dictJoueurs 1
+Generate_PAC_accessors Jeu Jeu_A "" player 1
 
 # ABSTRACTION ===============================================
 inherit Jeu_A Abstraction
@@ -18,6 +19,7 @@ method Jeu_A constructor {control} {
   set this(swl) ""
   set this(canvMini) ""
   set this(canvMap) ""
+  set this(player) ""
   set this(dictJoueurs) [dict create]
 }
 
@@ -29,16 +31,18 @@ inherit Jeu_P Presentation
 # CONTROLLER ================================================
 inherit Jeu Control
 method Jeu constructor {canvMini canvMap {parent ""}} {
-  set this(player) 1
   SWL_FC swl
   set this(swl) swl 
   set this(univers) "univ"
+  set player 0
+  
   Jeu_P ${objName}_P $objName
   Jeu_A ${objName}_A $objName
   
   ${objName}_A set_swl swl
   ${objName}_A set_canvMini $canvMini
   ${objName}_A set_canvMap $canvMap
+  ${objName}_A set_player $player
 
   this inherited $parent ${objName}_A ${objName}_P ""
 }
@@ -55,18 +59,33 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
 #   univ append univMiniMap
 # }
 
-method Jeu addPlanete {x y radius} {
-  $this(univers) addPlanete $x $y $radius this(swl)
+method Jeu addPlanete {x y radius density} {
+  $this(univers) addPlanete $x $y $radius $density
 }
 
-method Jeu addVaisseau {x y radius} {
-  $this(univers) addVaisseau "toto" $x $y $radius
+method Jeu addVaisseau {owner x y radius} {
+  #Récupère l'id du joueur pour pouvoir le donner a l'ajout de vaisseau
+  set idOwner [${objName} getIdPlayerByName $owner]
+  puts "Ajout d'un vaisson pour : $idOwner"
+  $this(univers) addVaisseau $idOwner $x $y $radius
+}
+
+method Jeu getIdPlayerByName { owner } {
+  return [dict keys [dict filter $this(dictJoueurs) value $owner]]
 }
 
 method Jeu addJoueur {nom color} {
- set idJoueur [[${objName}_A get_swl] Add_new_player "Joueur"]
- Joueur $idJoueur $nom $color $objName
- lappend [${objName}_A get_dictJoueurs] $nom
+  #On incrémente le nombre de joueur
+  ${objName}_A set_player [expr [${objName}_A get_player] + 1]
+  #Obtention de l'id joueur via l'ajout du joueur dans le swl, il lui crée l'id
+  #et l'ajoute dans une liste
+  set idJoueur [[${objName}_A get_swl] Add_new_player $nom]
+  #Ajout de l'id et du nom de joueur dans un dico de jeu
+  #Cela afin de pouvoir retrouver plus tard l'id du joueur avec son nom
+  dict set this(dictJoueurs) $idJoueur $nom
+  #Création du joueur
+  Joueur $nom $idJoueur $nom $color $objName
+#   lappend [${objName}_A get_dictJoueurs] $nom
 }
 
 method Jeu addUnivers {univ} {

@@ -8,8 +8,7 @@ method Planete_A constructor {control} {
 }
 # CONTROLLER ================================================
 inherit Planete Control
-method Planete constructor {{parent ""} swl} {
-  set this(swl) swl
+method Planete constructor {{parent ""}} {
   Planete_A ${objName}_A $objName
   this inherited $parent ${objName}_A "" ""
 }
