@@ -44,27 +44,26 @@ jeu addJoueur "j2" "red"
 
 # events Listeners
 bind .f.canv_gameMap <Double-1>  " singleclick %x %y;"
-bind .f.canv_gameMap <Double-3> " addVaisseau %x %y;"
 
-
- proc singleclick {x y} {
-     puts "new planet"
-     jeu addPlanete $x $y 15 30
-     return
+proc singleclick {x y} {
+    set selectElem [jeu getElementSelected]
+    if {$selectElem == "planet"} {
+      jeu addPlanete $x $y 15 30
+    } elseif {$selectElem == "ship"} {
+      addVaisseau $x $y
+    }
+    return
  }
  
- proc addVaisseau {x y} {
-     puts "new vaisseau"
-     set nomColor [jeu getSelectedPlayer]
-     set nom [lindex $nomColor 0]
-     set color [lindex $nomColor 1]
-     jeu addVaisseau $nom $x $y 10 $color
-     return
- }
- 
+proc addVaisseau {x y} {
+    puts "new vaisseau"
+    set nomColor [jeu getSelectedPlayer]
+    set nom [lindex $nomColor 0]
+    set color [lindex $nomColor 1]
+    jeu addVaisseau $nom $x $y 10 $color
+    return
+}
 
-
-jeu addPlanete 30 30 25
 
 Introspact i
 i attach jeu
