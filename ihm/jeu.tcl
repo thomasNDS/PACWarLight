@@ -66,7 +66,7 @@ method Jeu addPlanete {x y radius density} {
 method Jeu addVaisseau {owner x y radius color} {
   #Récupère l'id du joueur pour pouvoir le donner a l'ajout de vaisseau
   set idOwner [${objName} getIdPlayerByName $owner]
-  puts "Ajout d'un vaisson pour : $idOwner"
+  puts "Ajout d'un vaisseau pour : $idOwner"
   $this(univers) addVaisseau $idOwner $x $y $radius $color
 }
 
