@@ -8,13 +8,13 @@ source SWL_FC.tcl
 #PRESENTATION ====================================================
 
 inherit VaisseauMiniMap_P Presentation
-method VaisseauMiniMap_P constructor {control can owner x y radius} {
+method VaisseauMiniMap_P constructor {control can owner x y radius color} {
   this inherited $control
   set radius [expr 0.33 * $radius]
   set x [expr 0.33 * $x]
   set y [expr 0.33 * $y]
   set this(canvas) $can
-  set this(vaisseau) [$this(canvas) create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill green ]
+  set this(vaisseau) [$this(canvas) create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill $color ]
 }
 
 method VaisseauMiniMap_P update_position { x y } {
@@ -23,8 +23,8 @@ method VaisseauMiniMap_P update_position { x y } {
 
 # CONTROLLER ====================================================
 inherit VaisseauMiniMap Control
-method VaisseauMiniMap constructor {can {parent ""} owner x y radius} {
-  VaisseauMiniMap_P ${objName}_P $objName $can $owner $x $y $radius
+method VaisseauMiniMap constructor {can {parent ""} owner x y radius color} {
+  VaisseauMiniMap_P ${objName}_P $objName $can $owner $x $y $radius $color
   this inherited $parent "" ${objName}_P ""
 }
 

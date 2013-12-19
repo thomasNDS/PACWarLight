@@ -29,8 +29,8 @@ UniversMiniMap univMiniMap .f.canv_gameMap univ
 
 ToolKit toolKit jeu .f.f2
   
-jeu addJoueur "toto" "blue"
-jeu addJoueur "titi" "red"
+jeu addJoueur "j1" "blue"
+jeu addJoueur "j2" "red"
 
 # events Listeners
 bind .f.canv_gameMap <Double-1>  " singleclick %x %y;"
@@ -45,7 +45,11 @@ bind .f.canv_gameMap <Double-3> " addVaisseau %x %y;"
  
  proc addVaisseau {x y} {
      puts "new vaisseau"
-     jeu addVaisseau "toto" $x $y 10
+     set nomColor [jeu getSelectedPlayer]
+     set nom [lindex $nomColor 0]
+     set color [lindex $nomColor 1]
+     puts $color
+     jeu addVaisseau $nom $x $y 10 $color
      return
  }
  

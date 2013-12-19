@@ -100,7 +100,6 @@ method ToolKit selectShip { } {
 }
 #selection de joueurs
 method ToolKit selectPlayer { player } {
- puts "select $player"
  $this(jeu) selectPlayer $player
 }
 #Lance le jeu

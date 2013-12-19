@@ -5,7 +5,7 @@ source SWL_FC.tcl
 
 # PRESENTATION ==============================================
 inherit VaisseauMap_P Presentation
-method VaisseauMap_P constructor {control can owner x y radius} {
+method VaisseauMap_P constructor {control can owner x y radius color} {
   	this inherited $control
 
 	proc update_drag {x y can control} {
@@ -23,7 +23,7 @@ method VaisseauMap_P constructor {control can owner x y radius} {
 		$control update_drag_map $dx $dy
 	}
 
-	 set id [$can create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill green -tags [list background]]
+	 set id [$can create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill $color -tags [list background]]
 	$can bind background <Button-1>  "set dragged_object object; set last_x %x; set last_y %y"
 	set dragged_object ""; set last_x ""; set last_y "";
 	puts $id
@@ -33,9 +33,9 @@ method VaisseauMap_P constructor {control can owner x y radius} {
 
 # CONTROLLER ================================================
 inherit VaisseauMap Control
-method VaisseauMap constructor {can {parent ""} owner x y radius} {
+method VaisseauMap constructor {can {parent ""} owner x y radius color} {
   set this(parent) $parent
-  VaisseauMap_P ${objName}_P $objName $can $owner $x $y $radius
+  VaisseauMap_P ${objName}_P $objName $can $owner $x $y $radius $color
   this inherited $parent "" ${objName}_P ""
 }
 

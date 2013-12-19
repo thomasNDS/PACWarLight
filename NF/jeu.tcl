@@ -10,7 +10,9 @@ Generate_PAC_accessors Jeu Jeu_A Jeu_P swl 1
 Generate_PAC_accessors Jeu Jeu_A "" canvMini 1
 Generate_PAC_accessors Jeu Jeu_A "" canvMap 1
 Generate_PAC_accessors Jeu Jeu_A "" dictJoueurs 1
-Generate_PAC_accessors Jeu Jeu_A "" player 1
+Generate_PAC_accessors Jeu Jeu_A "" nbPlayer 1
+Generate_PAC_accessors Jeu Jeu_A "" selectedPlayer 1
+
 
 # ABSTRACTION ===============================================
 inherit Jeu_A Abstraction
@@ -19,8 +21,9 @@ method Jeu_A constructor {control} {
   set this(swl) ""
   set this(canvMini) ""
   set this(canvMap) ""
-  set this(player) ""
+  set this(nbPlayer) ""
   set this(dictJoueurs) [dict create]
+  set this(selectedPlayer) ""
 }
 
 # PRESENTATION ==============================================
@@ -34,7 +37,8 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   SWL_FC swl
   set this(swl) swl 
   set this(univers) "univ"
-  set player 0
+  set nbPlayer 0
+  set selected 1
   
   Jeu_P ${objName}_P $objName
   Jeu_A ${objName}_A $objName
@@ -42,7 +46,8 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   ${objName}_A set_swl swl
   ${objName}_A set_canvMini $canvMini
   ${objName}_A set_canvMap $canvMap
-  ${objName}_A set_player $player
+  ${objName}_A set_nbPlayer $nbPlayer
+  ${objName}_A set_selectedPlayer $selected
   
   swl Subscribe_after_Start_fire startID {
     puts "liste de bullets : $this(L_bullets)"
@@ -56,27 +61,15 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   this inherited $parent ${objName}_A ${objName}_P ""
 }
 
-# method Jeu createUnivers {canvas} {
-#   pack $canvas -expand 1 -fill both
-# 
-#   Univers univ $objName 
-#   UniversMap univMap $canvas 
-#   UniversMiniMap univMiniMap $canvas
-#   set this(univers) univ
-# 
-#   univ append univMap
-#   univ append univMiniMap
-# }
-
 method Jeu addPlanete {x y radius density} {
   $this(univers) addPlanete $x $y $radius $density
 }
 
-method Jeu addVaisseau {owner x y radius} {
+method Jeu addVaisseau {owner x y radius color} {
   #Récupère l'id du joueur pour pouvoir le donner a l'ajout de vaisseau
   set idOwner [${objName} getIdPlayerByName $owner]
   puts "Ajout d'un vaisson pour : $idOwner"
-  $this(univers) addVaisseau $idOwner $x $y $radius
+  $this(univers) addVaisseau $idOwner $x $y $radius $color
 }
 
 method Jeu getIdPlayerByName { owner } {
@@ -85,7 +78,7 @@ method Jeu getIdPlayerByName { owner } {
 
 method Jeu addJoueur {nom color} {
   #On incrémente le nombre de joueur
-  ${objName}_A set_player [expr [${objName}_A get_player] + 1]
+  ${objName}_A set_nbPlayer [expr [${objName}_A get_nbPlayer] + 1]
   #Obtention de l'id joueur via l'ajout du joueur dans le swl, il lui crée l'id
   #et l'ajoute dans une liste
   set idJoueur [[${objName}_A get_swl] Add_new_player $nom]
@@ -117,18 +110,37 @@ method Jeu getCanvMap {} {
 method Jeu stopSelect {} {
    puts "select planete"
 }
+
 #selection de planette
 method Jeu selectPlanete { } {
    puts "select planete"
 }
+
 #selection de vaisseaux
 method Jeu selectShip { } {
  puts "select ship"
 }
+
 #selection de joueurs
-method Jeu selectPlayer { player } {
- set this(player) $player
+method Jeu selectPlayer { selectedPlayer } {
+ puts $selectedPlayer
+ ${objName}_A set_selectedPlayer $selectedPlayer
 }
+
+#Retourne le nom du joueur selectionné
+method Jeu getSelectedPlayer {} {
+  set owner ""
+  puts "joueur selectionné : [${objName}_A get_selectedPlayer]"
+  if {[${objName}_A get_selectedPlayer] == 1} { 
+    lappend owner "j1"
+    lappend owner "red"
+  } elseif {[${objName}_A get_selectedPlayer] == 2} {
+    lappend owner "j2"
+    lappend owner "blue"
+  }
+  return $owner
+}
+
 #Lance le jeu
 method Jeu startGame { start } {
  puts "start"
