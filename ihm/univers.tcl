@@ -63,3 +63,9 @@ method Univers stepComputation {L_bullets} {
 	    [${objName}_A get_canvMini] coords $id [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius]
 	  }
 }
+
+method Univers destroyShip {idShip} {
+#   puts $idShip
+  [${objName}_A get_canvMap] delete $idShip
+  [${objName}_A get_canvMini] delete $idShip
+}
