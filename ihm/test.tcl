@@ -58,7 +58,6 @@ bind .f.canv_gameMap <Double-3> " addVaisseau %x %y;"
      set nomColor [jeu getSelectedPlayer]
      set nom [lindex $nomColor 0]
      set color [lindex $nomColor 1]
-     puts $color
      jeu addVaisseau $nom $x $y 10 $color
      return
  }

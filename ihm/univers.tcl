@@ -47,6 +47,8 @@ method Univers addVaisseau { owner x y radius color} {
 }
 
 method Univers stepBeginComputation {L_bullets} {
+  [${objName}_A get_canvMap] delete Bullet
+  [${objName}_A get_canvMini] delete Bullet
   set radius 2
 	foreach {id x y vx vy} $L_bullets {
 		 [${objName}_A get_canvMap] create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill black -tags [list Bullet $id]
@@ -55,11 +57,15 @@ method Univers stepBeginComputation {L_bullets} {
 }
   
 method Univers stepComputation {L_bullets} {
-[${objName}_A get_canvMap] delete $L_bullets
-[${objName}_A get_canvMini] delete $L_bullets
-set radius 2
-      foreach {id x y vx vy} $L_bullets {
-		[${objName}_A get_canvMap] create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill black -tags [list Bullet $id]
-		[${objName}_A get_canvMini] create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill black -tags [list Bullet $id]
-	      }
+  set radius 2
+  foreach {id x y vx vy} $L_bullets {
+	    [${objName}_A get_canvMap] coords $id [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius]
+	    [${objName}_A get_canvMini] coords $id [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius]
+	  }
+}
+
+method Univers destroyShip {idShip} {
+#   puts $idShip
+  [${objName}_A get_canvMap] delete $idShip
+  [${objName}_A get_canvMini] delete $idShip
 }

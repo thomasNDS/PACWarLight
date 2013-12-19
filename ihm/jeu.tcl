@@ -47,6 +47,8 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   ${objName}_A set_nbPlayer $nbPlayer
   ${objName}_A set_selectedPlayer $selected
   
+  this inherited $parent ${objName}_A ${objName}_P ""
+  
   swl Subscribe_after_Start_fire startID {
     puts "liste de bullets : $this(L_bullets)"
     "univ" stepBeginComputation $this(L_bullets)
@@ -55,8 +57,12 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   swl Subscribe_after_Compute_a_simulation_step computeID {
     "univ" stepComputation $this(L_bullets)
   }
-
-  this inherited $parent ${objName}_A ${objName}_P ""
+  
+  swl Subscribe_after_Destroy_ship destroyShipID {
+    "univ" destroyShip $id
+    puts "Destroy ship $id";
+  }
+  
 }
 
 method Jeu addPlanete {x y radius density} {
@@ -66,7 +72,7 @@ method Jeu addPlanete {x y radius density} {
 method Jeu addVaisseau {owner x y radius color} {
   #Récupère l'id du joueur pour pouvoir le donner a l'ajout de vaisseau
   set idOwner [${objName} getIdPlayerByName $owner]
-  puts "Ajout d'un vaisson pour : $idOwner"
+  puts "Ajout d'un vaisseau pour : $idOwner"
   $this(univers) addVaisseau $idOwner $x $y $radius $color
 }
 
