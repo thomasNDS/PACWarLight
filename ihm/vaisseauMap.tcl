@@ -26,7 +26,7 @@ method VaisseauMap_P update_drag {x y} {
 	set dy [expr $y - $this(last_y)]; set this(last_y) $y
 	set this(x)	$x
 	set this(y)     $y
-	$this(control) update_drag_map $dx $dy
+	$this(control) update_drag_map $dx $dy $x $y
 	puts "bind"
 }
 
@@ -48,10 +48,18 @@ method VaisseauMap constructor {can {parent ""} owner x y radius color} {
   VaisseauMap_P ${objName}_P $objName $can $this(parent) $owner $x $y $radius $color
   this inherited $parent "" ${objName}_P ""
 }
+
+#update the position
 method VaisseauMap update_drag { x y } {
 	${objName}_P update_position $x $y
 }
-method VaisseauMap update_drag_map { x y } {
-	$this(parent) update_drag $x $y 
+
+# detect the drag
+method VaisseauMap update_drag_map { dx dy x y } {
+	$this(parent) update_drag $dx $dy $x $y 
 }
+
+
+
+
 

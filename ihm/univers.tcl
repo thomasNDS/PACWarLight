@@ -25,6 +25,9 @@ method Univers constructor {{parent ""}} {
   ${objName}_A set_canvMini [$this(parent) getCanvMini]
   ${objName}_A set_canvMap [$this(parent) getCanvMap]
 }
+method Univers getKernel { } {
+	return [$this(parent) get_swl]
+}
 
 method Univers addPlanete { x y radius density} {
 #   set namePlanete [[$this(parent) get_swl] generate_uid "Planete"]
@@ -41,7 +44,7 @@ method Univers addVaisseau { owner x y radius color} {
   #Update du vaisseau dans swl pour crée l'angle et la velocité
   [$this(parent) get_swl] Update_ship $owner $idShip [dict create fire_velocity 20 fire_angle 1]
   #Création de l'agent vaisseau
-  Vaisseau $idShip $owner $objName
+  Vaisseau $idShip $owner $objName $idShip
   VaisseauMap ${idShip}_Map [${objName}_A get_canvMap] $idShip $owner $x $y $radius $color
   VaisseauMiniMap ${idShip}_MiniMap [${objName}_A get_canvMini] $idShip $owner $x $y $radius $color
 }
