@@ -30,8 +30,9 @@ method Univers getKernel { } {
 }
 
 method Univers addPlanete { x y radius density} {
+#   set namePlanete [[$this(parent) get_swl] generate_uid "Planete"]
   set idPlanete [[$this(parent) get_swl] Add_new_planet $x $y $radius $density]
-  Planete $idPlanete $objName $idPlanete 
+  Planete $idPlanete $objName
   PlaneteMap ${idPlanete}_Map [${objName}_A get_canvMap] $idPlanete $x $y $radius
   PlaneteMiniMap ${idPlanete}_MiniMap [${objName}_A get_canvMini] $idPlanete $x $y $radius
 }

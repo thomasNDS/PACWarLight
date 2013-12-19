@@ -30,7 +30,7 @@ method PlaneteMap_P update_drag {x y} {
 	set dy [expr $y - $this(last_y)]; set this(last_y) $y
 	set this(x)	$x
 	set this(y)     $y
-	$this(control) detect_drag_map $dx $dy
+	$this(control) detect_drag_map $dx $dy $x $y
 	puts "bind"
 }
 
@@ -57,8 +57,8 @@ method PlaneteMap update_drag { x y } {
 	${objName}_P update_position $x $y
 }
 
-method PlaneteMap detect_drag_map { x y } {
-	$this(parent) update_drag $x $y 
+method PlaneteMap detect_drag_map { dx dy x y } {
+	$this(parent) update_drag $dx $dy $x $y 
 }
 
 

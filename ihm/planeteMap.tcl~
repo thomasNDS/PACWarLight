@@ -1,19 +1,23 @@
 
 # PRESENTATION ==============================================
-inherit VaisseauMap_P Presentation
-method VaisseauMap_P constructor {control can idShip owner x y radius color} {
+inherit PlaneteMap_P Presentation
+
+method PlaneteMap_P constructor {control can idPlanet scale x y radius densite} {
+	set this(scale) 1
 	set this(x) $x
 	set this(y) $y
-  	this inherited $control
+ 	
 	set this(canvas) $can
 	set this(control) $control
 
-	set this(id) [$can create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill $color -tags [lappend [list background] $idShip]]
+	set this(id) [$this(canvas) create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill yellow -tags [lappend [list background] $idPlanet]]
 	$this(canvas) bind $this(id) <Button-1> [list $objName start_drag %x %y]
+
+	this inherited $control
 }
 
 #start the drag of the planet
-method VaisseauMap_P start_drag {x y} {
+method PlaneteMap_P start_drag {x y} {
 	set this(last_x) $x
 	set this(last_y) $y
 	bind $this(canvas) <B1-Motion>       [list $objName update_drag %x %y]
@@ -21,42 +25,40 @@ method VaisseauMap_P start_drag {x y} {
 }
 
 # call back method
-method VaisseauMap_P update_drag {x y} {
+method PlaneteMap_P update_drag {x y} {
 	set dx [expr $x - $this(last_x)]; set this(last_x) $x
 	set dy [expr $y - $this(last_y)]; set this(last_y) $y
 	set this(x)	$x
 	set this(y)     $y
-	$this(control) update_drag_map $dx $dy $x $y
+	$this(control) detect_drag_map $dx $dy $x $y
 	puts "bind"
 }
 
 # stop the drag of the planet
-method VaisseauMap_P stop_drag {} {
+method PlaneteMap_P stop_drag {} {
 	bind $this(canvas) <B1-Motion> ""
 	puts "end drag"
 }
 
 # update position
-method VaisseauMap_P update_position { x y } {
+method PlaneteMap_P update_position { x y } {
 	 $this(canvas) move $this(id) [expr  $x ] [expr  $y ] 
 }
 
 # CONTROLLER ================================================
-inherit VaisseauMap Control
-method VaisseauMap constructor {can {parent ""} owner x y radius color} {
+inherit PlaneteMap Control
+method PlaneteMap constructor {can {parent ""} x y radius} {
   set this(parent) $parent
-  VaisseauMap_P ${objName}_P $objName $can $this(parent) $owner $x $y $radius $color
+  PlaneteMap_P ${objName}_P $objName $can $parent 1 $x $y $radius 1
   this inherited $parent "" ${objName}_P ""
 }
 
-#update the position
-method VaisseauMap update_drag { x y } {
+method PlaneteMap update_drag { x y } {
 	${objName}_P update_position $x $y
 }
 
-# detect the drag
-method VaisseauMap update_drag_map { dx dy x y } {
-	$this(parent) update_drag $dx $dy $x $y 
+method PlaneteMap detect_drag_map { x y } {
+	$this(parent) update_drag $x $y 
 }
 
 
