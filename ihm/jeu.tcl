@@ -41,6 +41,7 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   set selected 1
   set this(toolkit) [ToolKit toolKit $objName .f.f2]
   set elementSelected ""
+
   Jeu_P ${objName}_P $objName
   Jeu_A ${objName}_A $objName
   
@@ -49,7 +50,6 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   ${objName}_A set_canvMap $canvMap
   ${objName}_A set_nbPlayer $nbPlayer
   ${objName}_A set_selectedPlayer $selected
-  ${objName}_A set_elementSelected $elementSelected
   
   this inherited $parent ${objName}_A ${objName}_P ""
   
@@ -126,7 +126,7 @@ method Jeu getCanvMap {} {
 
 # stop la selection de planette ou vaisseaux
 method Jeu stopSelect {} {
-   puts "select planete"
+  ${objName}_A set_elementSelected ""
 }
 
 #selection de planette
