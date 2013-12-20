@@ -15,9 +15,9 @@ method ToolKit_P constructor {control can} {
 	set this(stateGame) 0
 
 	pack [label .f.f2.strAngle -text "Angle"] -side top
-	pack [entry .f.f2.angle -width 15 -relief sunken -textvariable this(angleSelection)] -side top
+	pack [entry .f.f2.angle -width 15 -relief sunken ] -side top
 	pack [label .f.f2.strvitesse -text "vitesse"] -side top
-	pack [entry .f.f2.velocity -width 15 -relief sunken -textvariable this(velocitySelection)] -side top
+	pack [entry .f.f2.velocity -width 15 -relief sunken )] -side top
 
 	#Listener de boutons	  
 	pack [label .f.f2.lab2 -text "==== Joueurs ====\n" -bg green] -side top
@@ -75,10 +75,13 @@ method ToolKit_P startGame { start } {
  set this(stateGame) $start
  $this(control) startGame $start
 }
+#select a ship
 method ToolKit_P setShipSelected {x y fire angle } {
-	set  this(angleSelection) $angle
-	set  this(velocitySelection) $fire
-	puts $angle
+	.f.f2.angle delete 0 end
+	.f.f2.angle insert 0 $angle
+	.f.f2.velocity delete 0 end
+	.f.f2.velocity insert 0 $fire
+
 }
 
 # CONTROLLER ================================================
