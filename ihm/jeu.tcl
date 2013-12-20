@@ -10,6 +10,7 @@ Generate_PAC_accessors Jeu Jeu_A "" canvMap 1
 Generate_PAC_accessors Jeu Jeu_A "" dictJoueurs 1
 Generate_PAC_accessors Jeu Jeu_A "" nbPlayer 1
 Generate_PAC_accessors Jeu Jeu_A "" selectedPlayer 1
+Generate_PAC_accessors Jeu Jeu_A "" elementSelected 1
 
 
 # ABSTRACTION ===============================================
@@ -22,6 +23,7 @@ method Jeu_A constructor {control} {
   set this(nbPlayer) ""
   set this(dictJoueurs) [dict create]
   set this(selectedPlayer) ""
+  set this(elementSelected) ""
 }
 
 # PRESENTATION ==============================================
@@ -38,6 +40,7 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   set nbPlayer 0
   set selected 1
   set this(toolkit) [ToolKit toolKit $objName .f.f2]
+  set elementSelected "planet"
   Jeu_P ${objName}_P $objName
   Jeu_A ${objName}_A $objName
   
@@ -46,6 +49,7 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   ${objName}_A set_canvMap $canvMap
   ${objName}_A set_nbPlayer $nbPlayer
   ${objName}_A set_selectedPlayer $selected
+  ${objName}_A set_elementSelected $elementSelected
   
   this inherited $parent ${objName}_A ${objName}_P ""
   
@@ -122,12 +126,14 @@ method Jeu stopSelect {} {
 
 #selection de planette
 method Jeu selectPlanete { } {
-   puts "select planete"
+#    puts "select planete"
+   ${objName}_A set_elementSelected "planet"
 }
 
 #selection de vaisseaux
 method Jeu selectShip { } {
- puts "select ship"
+#   puts "select ship"
+  ${objName}_A set_elementSelected "ship"
 }
 
 #selection de joueurs
@@ -148,6 +154,10 @@ method Jeu getSelectedPlayer {} {
     lappend owner "blue"
   }
   return $owner
+}
+
+method Jeu getElementSelected {} {
+  return [${objName}_A get_elementSelected]
 }
 
 #Lance le jeu

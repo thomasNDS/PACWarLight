@@ -29,7 +29,7 @@ method ToolKit_P constructor {control can} {
 	pack [label .f.f2.lab3 -text "==== Elements ====\n" -bg green] -side top
 
 	button .f.f2.butselectShip -text " Vaisseau " -bg green -command [list $objName selectShip ]
-	button .f.f2.butselectPlanete -text " Planette " -bg green -command [list $objName selectPlanet ]
+	button .f.f2.butselectPlanete -text " Planete " -bg green -command [list $objName selectPlanet ]
 	button .f.f2.butAnnulate -text " ANNULER " -bg green -command [list $objName annulateSelect ] 
 	pack .f.f2.butselectShip -side top
 	pack .f.f2.butselectPlanete -side top
@@ -58,7 +58,7 @@ method ToolKit_P annulateSelect {} {
 #Selection de planette
 method ToolKit_P selectPlanet {} {
 	pack .f.f2.butAnnulate -side top 	
-	.f.f2.selection configure -text "planette"
+	.f.f2.selection configure -text "planete"
 	$this(control) selectPlanete
 	.f.f2.butselectShip configure -bg green
 	.f.f2.butselectPlanete configure -bg red
