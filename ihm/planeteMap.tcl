@@ -9,8 +9,10 @@ method PlaneteMap_P constructor {control can idPlanet scale x y radius densite} 
  	
 	set this(canvas) $can
 	set this(control) $control
+set background_file ../planete.png
+set background [image create photo -file $background_file]
 
-	set this(id) [$this(canvas) create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill yellow -tags [lappend [list background] $idPlanet]]
+	set this(id) [$this(canvas) create image [expr $x-40] [expr $y-40] -anchor nw -image $background -tags [lappend [list background] $idPlanet]]
 	$this(canvas) bind $this(id) <Button-1> [list $objName start_drag %x %y]
 
 	this inherited $control

@@ -36,7 +36,6 @@ method Univers setShipSelected {x y fire angle id} {
 	set this(selectedShip) $id
 }
 
-
 method Univers addPlanete { x y radius density} {
   set idPlanete [[$this(parent) get_swl] Add_new_planet $x $y $radius $density]
   Planete $idPlanete $objName $idPlanete 
@@ -50,7 +49,7 @@ method Univers addVaisseau { owner x y radius color} {
   # il devient le vaisseau en cours de selection
   set this(selectedShip) $idShip
   #Update du vaisseau dans swl pour crée l'angle et la velocité
-  [$this(parent) get_swl] Update_ship $owner $idShip [dict create fire_velocity 30 fire_angle 1]
+  [$this(parent) get_swl] Update_ship $owner $idShip [dict create fire_velocity 10 fire_angle 1]
   #Création de l'agent vaisseau
   Vaisseau $idShip $owner $objName $idShip 30 1
   VaisseauMap ${idShip}_Map [${objName}_A get_canvMap] $idShip $owner $x $y $radius $color
@@ -62,8 +61,8 @@ method Univers stepBeginComputation {L_bullets} {
   [${objName}_A get_canvMini] delete Bullet
   set radius 2
 	foreach {id x y vx vy} $L_bullets {
-		 [${objName}_A get_canvMap] create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill black -tags [list Bullet $id]
-		 [${objName}_A get_canvMini] create oval [expr ($x - $radius)/3] [expr ($y - $radius) /3] [expr ($x + $radius)/3] [expr ($y + $radius)/3] -fill black -tags [list Bullet $id]
+		 [${objName}_A get_canvMap] create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill pink -tags [list Bullet $id]
+		 [${objName}_A get_canvMini] create oval [expr ($x - $radius)/3] [expr ($y - $radius) /3] [expr ($x + $radius)/3] [expr ($y + $radius)/3] -fill pink -tags [list Bullet $id]
 		}
 }
   

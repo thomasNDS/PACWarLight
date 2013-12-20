@@ -20,23 +20,23 @@ method ToolKit_P constructor {control can} {
 	pack [entry .f.f2.velocity -width 15 -relief sunken ] -side top
 	button .f.f2.butOK -text " Valider " -command [list $objName validate ]
 	pack .f.f2.butOK -side top
-	#Listener de boutons	  
-	pack [label .f.f2.lab2 -text "==== Joueurs ====\n" -bg green] -side top
-	pack [label .f.f2.info1 -textvariable info1 -bg green ] -side top
+  
+	pack [label .f.f2.lab2 -text "\n==== Joueurs ====" ] -side top
+	pack [label .f.f2.info1 -textvariable info1  ] -side top
 	button .f.f2.butj1 -text "Joueur 1" -bg red -command [list $objName selectPlayer 1 ]
 	button .f.f2.butj2 -text "Joueur 2" -bg green -command [list $objName selectPlayer 2 ]
 	pack .f.f2.butj1 -side top
 	pack .f.f2.butj2 -side top
-	pack [label .f.f2.lab3 -text "==== Elements ====\n" -bg green] -side top
+	pack [label .f.f2.lab3 -text "==== Elements ====\n"] -side top
 
 	button .f.f2.butselectShip -text " Vaisseau " -bg green -command [list $objName selectShip ]
 	button .f.f2.butselectPlanete -text " Planete " -bg green -command [list $objName selectPlanet ]
-	button .f.f2.butAnnulate -text " ANNULER " -bg green -command [list $objName annulateSelect ] 
+	button .f.f2.butAnnulate -text " ANNULER "  -command [list $objName annulateSelect ] 
 	pack .f.f2.butselectShip -side top
 	pack .f.f2.butselectPlanete -side top
-	pack [label .f.f2.labNo -text " \nSelection: " -bg green ] -side top 
-	pack [label .f.f2.selection -text "rien" -bg green ] -side top 
-	button .f.f2.start -text "start" -bg blue -command [list $objName startGame 1 ]
+	pack [label .f.f2.labNo -text " \nSelection: " ] -side top 
+	pack [label .f.f2.selection -text "rien" -bg lightgreen ] -side top 
+	button .f.f2.start -text " START " -bg lightblue -width 15 -command [list $objName startGame 1 ]
 	pack .f.f2.start -side top
 }
 #Selection de vaisseaux
@@ -99,7 +99,7 @@ method ToolKit constructor {{parent ""} can } {
 }
 #met a jour les infos
 method ToolKit updateInfo {angle vel} {
-   $this(jeu) updateInfoShip 
+   $this(jeu) updateInfoShip $angle $vel
 }
 
 # stop la selection de planette ou vaisseaux

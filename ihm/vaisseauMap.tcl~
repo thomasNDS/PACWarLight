@@ -54,7 +54,7 @@ method VaisseauMap constructor {can {parent ""} owner x y radius color} {
 method VaisseauMap update_drag { x y } {
 	${objName}_P update_position $x $y
 }
-
+#is touch for selection
 method VaisseauMap isbind { x y } {
 	$this(parent) isbind $x $y
 }

@@ -40,7 +40,7 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   set nbPlayer 0
   set selected 1
   set this(toolkit) [ToolKit toolKit $objName .f.f2]
-  set elementSelected "planet"
+ # set elementSelected "planet"
   Jeu_P ${objName}_P $objName
   Jeu_A ${objName}_A $objName
   
@@ -54,7 +54,6 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   this inherited $parent ${objName}_A ${objName}_P ""
   
   swl Subscribe_after_Start_fire startID {
-    puts "liste de bullets : $this(L_bullets)"
     "univ" stepBeginComputation $this(L_bullets)
   }
   
@@ -65,6 +64,12 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   swl Subscribe_after_Destroy_ship destroyShipID {
     "univ" destroyShip $id
     puts "Destroy ship $id";
+
+    set looser [${objName} getNbShip]
+    if {$looser != ""} {
+      puts "Le joueur $looser a perdu !!"
+      ${objName} Stop_simulation
+    }
   }
   
   swl Subscribe_after_Destroy_planet destroyPlanetID {
@@ -166,16 +171,16 @@ method Jeu startGame { start } {
  [${objName}_A get_swl] Start_fire
 }
 
-#method Jeu setShipSelected {x y fire angle } {
-#	$this(toolkit) setShipSelected $x $y $fire $angle
-#}
+method Jeu setShipSelected {x y fire angle } {
+	$this(toolkit) setShipSelected $x $y $fire $angle
+}
 
 method Jeu startFire {} {
   [${objName}_A get_swl] Start_fire
 }
 
-#method Jeu updateInfoShip {angle vel} {
-# "univ" updateInfoShip $angle $vel
-#}
+method Jeu updateInfoShip {angle vel} {
+ "univ" updateInfoShip $angle $vel
+}
 
 

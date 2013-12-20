@@ -40,7 +40,7 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   set nbPlayer 0
   set selected 1
   set this(toolkit) [ToolKit toolKit $objName .f.f2]
-  set elementSelected "planet"
+  set elementSelected ""
   Jeu_P ${objName}_P $objName
   Jeu_A ${objName}_A $objName
   
@@ -54,7 +54,6 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   this inherited $parent ${objName}_A ${objName}_P ""
   
   swl Subscribe_after_Start_fire startID {
-    puts "liste de bullets : $this(L_bullets)"
     "univ" stepBeginComputation $this(L_bullets)
   }
   
