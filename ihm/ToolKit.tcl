@@ -104,7 +104,7 @@ method ToolKit updateInfo {angle vel} {
 
 # stop la selection de planette ou vaisseaux
 method ToolKit stopSelect {} {
-   puts "select planete"
+   puts "stop select"
    $this(jeu) stopSelect
 }
 #selection de planette
