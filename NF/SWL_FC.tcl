@@ -232,6 +232,22 @@ method SWL_FC Update_ship {id_player id D_update} {
 	dict for {k v} $D_update {dict set this(D_players) $id_player D_ships $id $k $v}
 }
 
+method SWL_FC getNbShip {} {
+  set nbShip 0
+  set looser ""
+   dict for {id_player D_player} $this(D_players) {
+      set shipsForThisPlayer 0
+      dict for {id_ship D_ship} [dict get $D_player D_ships] {
+	incr shipsForThisPlayer
+      }
+      if {$shipsForThisPlayer == 0} {
+	set looser $id_player
+      }
+   }
+   puts $looser
+   return $looser
+}
+
 #___________________________________________________________________________________________________________________________________________
 #_______________________________________________________________ Subscribers _______________________________________________________________
 #___________________________________________________________________________________________________________________________________________

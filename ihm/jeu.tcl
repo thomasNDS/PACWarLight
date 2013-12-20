@@ -65,6 +65,12 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   swl Subscribe_after_Destroy_ship destroyShipID {
     "univ" destroyShip $id
     puts "Destroy ship $id";
+
+    set looser [${objName} getNbShip]
+    if {$looser != ""} {
+      puts "Le joueur $looser a perdu !!"
+      ${objName} Stop_simulation
+    }
   }
   
   swl Subscribe_after_Destroy_planet destroyPlanetID {
