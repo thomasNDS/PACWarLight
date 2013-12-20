@@ -25,10 +25,20 @@ method Vaisseau update_drag { dx dy my_x my_y} {
 }
 
 method Vaisseau isbind { x y } {
-	$this(univers) setShipSelected $x $y this(fire) this(angle)
+	$this(univers) setShipSelected $x $y $this(fire) $this(angle) $this(id)
 }
 
-method Vaisseau update_angle { fireAngle} {
-	[$this(univers) getKernel] Update_ship $this(owner) $this(id) [dict createfire_angle $fireAngle]
+method Vaisseau set_infos { fireAngle velocity} {
+	[$this(univers) getKernel] Update_ship $this(owner) $this(id) [dict createfire_angle $fireAngle fire_velocity $velocity]
 }
+
+method Vaisseau updateInfo {angle vel} {
+	set this(angle) $angle
+	set this(fire) $vel
+	${objName} set_infos $angle $vel
+}
+
+
+
+
 

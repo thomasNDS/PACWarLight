@@ -31,8 +31,9 @@ method Univers getKernel { } {
 	return [$this(parent) get_swl]
 }
 
-method Univers setShipSelected {x y fire angle } {
-	$this(jeu) setShipSelected x y fire angle
+method Univers setShipSelected {x y fire angle id} {
+	$this(jeu) setShipSelected $x $y $fire $angle
+	set this(selectedShip) $id
 }
 
 
@@ -46,6 +47,8 @@ method Univers addPlanete { x y radius density} {
 method Univers addVaisseau { owner x y radius color} {
   #Obtention id avec ajout dans swl
   set idShip [[$this(parent) get_swl] Add_new_ship $owner $x $y $radius]
+  # il devient le vaisseau en cours de selection
+  set this(selectedShip) $idShip
   #Update du vaisseau dans swl pour crée l'angle et la velocité
   [$this(parent) get_swl] Update_ship $owner $idShip [dict create fire_velocity 30 fire_angle 1]
   #Création de l'agent vaisseau
@@ -60,7 +63,7 @@ method Univers stepBeginComputation {L_bullets} {
   set radius 2
 	foreach {id x y vx vy} $L_bullets {
 		 [${objName}_A get_canvMap] create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill black -tags [list Bullet $id]
-		 [${objName}_A get_canvMini] create oval [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius] -fill black -tags [list Bullet $id]
+		 [${objName}_A get_canvMini] create oval [expr ($x - $radius)/3] [expr ($y - $radius) /3] [expr ($x + $radius)/3] [expr ($y + $radius)/3] -fill black -tags [list Bullet $id]
 		}
 }
   
@@ -68,7 +71,7 @@ method Univers stepComputation {L_bullets} {
   set radius 2
   foreach {id x y vx vy} $L_bullets {
 	    [${objName}_A get_canvMap] coords $id [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius]
-	    [${objName}_A get_canvMini] coords $id [expr $x - $radius] [expr $y - $radius] [expr $x + $radius] [expr $y + $radius]
+	    [${objName}_A get_canvMini] coords $id [expr ($x - $radius) / 3] [expr ($y - $radius) / 3] [expr ($x + $radius) / 3 ] [expr ($y + $radius) /3 ]
 	  }
 }
 
@@ -82,4 +85,10 @@ method Univers destroyPlanet {idPlanet} {
   [${objName}_A get_canvMap] delete $idPlanet
   [${objName}_A get_canvMini] delete $idPlanet
 }
+
+method jeu updateInfoShip {angle vel} {
+ $this(selectedShip) updateInfo $angle $vel
+}
+
+
 

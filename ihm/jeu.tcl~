@@ -39,12 +39,8 @@ method Jeu constructor {canvMini canvMap {parent ""}} {
   set this(univers) "univ"
   set nbPlayer 0
   set selected 1
-<<<<<<< HEAD
   set this(toolkit) [ToolKit toolKit $objName .f.f2]
-=======
   set elementSelected "planet"
-  
->>>>>>> 9833ff70b862e7574f874cfde1157a3884818a13
   Jeu_P ${objName}_P $objName
   Jeu_A ${objName}_A $objName
   
@@ -170,14 +166,16 @@ method Jeu startGame { start } {
  [${objName}_A get_swl] Start_fire
 }
 
-method Jeu setShipSelected {x y fire angle } {
-	$this(toolkit) setShipSelected $x $y $fire $angle
-}
+#method Jeu setShipSelected {x y fire angle } {
+#	$this(toolkit) setShipSelected $x $y $fire $angle
+#}
 
 method Jeu startFire {} {
   [${objName}_A get_swl] Start_fire
 }
 
-
+#method Jeu updateInfoShip {angle vel} {
+# "univ" updateInfoShip $angle $vel
+#}
 
 

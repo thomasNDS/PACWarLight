@@ -18,7 +18,8 @@ method ToolKit_P constructor {control can} {
 	pack [entry .f.f2.angle -width 15 -relief sunken ] -side top
 	pack [label .f.f2.strvitesse -text "vitesse"] -side top
 	pack [entry .f.f2.velocity -width 15 -relief sunken ] -side top
-
+	button .f.f2.butOK -text " Valider " -command [list $objName validate ]
+	pack .f.f2.butOK -side top
 	#Listener de boutons	  
 	pack [label .f.f2.lab2 -text "==== Joueurs ====\n" -bg green] -side top
 	pack [label .f.f2.info1 -textvariable info1 -bg green ] -side top
@@ -81,7 +82,11 @@ method ToolKit_P setShipSelected {x y fire angle } {
 	.f.f2.angle insert 0 $angle
 	.f.f2.velocity delete 0 end
 	.f.f2.velocity insert 0 $fire
-
+}
+method ToolKit_P validate {} {
+	set angle [.f.f2.angle get]
+	set velocity [.f.f2.velocity get]
+	$this(control) updateInfo $angle $velocity
 }
 
 # CONTROLLER ================================================
@@ -92,6 +97,11 @@ method ToolKit constructor {{parent ""} can } {
   this inherited $parent ${objName}_A ${objName}_P ""
   set this(jeu) $parent
 }
+#met a jour les infos
+method ToolKit updateInfo {angle vel} {
+   $this(jeu) updateInfoShip $angle $vel
+}
+
 # stop la selection de planette ou vaisseaux
 method ToolKit stopSelect {} {
    puts "select planete"

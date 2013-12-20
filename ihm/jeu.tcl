@@ -174,6 +174,8 @@ method Jeu startFire {} {
   [${objName}_A get_swl] Start_fire
 }
 
-
+method Jeu updateInfoShip {angle vel} {
+ "univ" updateInfoShip $angle $vel
+}
 
 

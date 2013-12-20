@@ -31,8 +31,9 @@ method Univers getKernel { } {
 	return [$this(parent) get_swl]
 }
 
-method Univers setShipSelected {x y fire angle } {
+method Univers setShipSelected {x y fire angle id} {
 	$this(jeu) setShipSelected $x $y $fire $angle
+	set this(selectedShip) $id
 }
 
 
@@ -46,6 +47,8 @@ method Univers addPlanete { x y radius density} {
 method Univers addVaisseau { owner x y radius color} {
   #Obtention id avec ajout dans swl
   set idShip [[$this(parent) get_swl] Add_new_ship $owner $x $y $radius]
+  # il devient le vaisseau en cours de selection
+  set this(selectedShip) $idShip
   #Update du vaisseau dans swl pour crée l'angle et la velocité
   [$this(parent) get_swl] Update_ship $owner $idShip [dict create fire_velocity 30 fire_angle 1]
   #Création de l'agent vaisseau
@@ -82,4 +85,10 @@ method Univers destroyPlanet {idPlanet} {
   [${objName}_A get_canvMap] delete $idPlanet
   [${objName}_A get_canvMini] delete $idPlanet
 }
+
+method Univers updateInfoShip {angle vel} {
+ $this(selectedShip) updateInfo $angle $vel
+}
+
+
 
