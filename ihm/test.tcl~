@@ -33,9 +33,6 @@ pack [label .f.canv_gameMap.t -text "Dans l'univers" -bg green]  -side bottom
 
 Jeu jeu .f.f2.canv_gameMini .f.canv_gameMap
 
-Univers univ jeu
-UniversMap univMap .f.f2.canv_gameMini univ
-UniversMiniMap univMiniMap .f.canv_gameMap univ
   
 jeu addJoueur "j1" "blue"
 jeu addJoueur "j2" "red"

@@ -157,7 +157,7 @@ method Jeu startGame { start } {
 }
 
 method Jeu setShipSelected {x y fire angle } {
-	$this(toolkit) setShipSelected $x $y $fire $angle
+	$this(toolkit) setShipSelected x y fire angle
 }
 
 method Jeu startFire {} {

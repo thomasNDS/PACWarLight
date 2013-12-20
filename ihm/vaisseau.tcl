@@ -8,7 +8,9 @@ method Vaisseau_A constructor {control} {
 
 # CONTROLLER ================================================
 inherit Vaisseau Control
-method Vaisseau constructor {owner parent id} {
+method Vaisseau constructor {owner parent id fire angle } {
+  set this(fire) $fire
+  set this(angle) $angle
   set this(id) $id
   set this(owner) $owner
   set this(univers) $parent
@@ -22,4 +24,11 @@ method Vaisseau update_drag { dx dy my_x my_y} {
 	[$this(univers) getKernel] Update_ship $this(owner) $this(id) [dict create x $my_x y $my_y]
 }
 
+method Vaisseau isbind { x y } {
+	$this(univers) setShipSelected $x $y $this(fire) $this(angle)
+}
+
+method Vaisseau update_angle { fireAngle} {
+	[$this(univers) getKernel] Update_ship $this(owner) $this(id) [dict createfire_angle $fireAngle]
+}
 

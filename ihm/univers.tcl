@@ -19,15 +19,22 @@ method Univers_A constructor {control} {
 
 # CONTROLLER ================================================
 inherit Univers Control
-method Univers constructor {{parent ""}} {
+method Univers constructor {parent } {
   Univers_A ${objName}_A $objName
   this inherited $parent ${objName}_A "" ""
+  set this(jeu) $parent
   ${objName}_A set_canvMini [$this(parent) getCanvMini]
   ${objName}_A set_canvMap [$this(parent) getCanvMap]
 }
+
 method Univers getKernel { } {
 	return [$this(parent) get_swl]
 }
+
+method Univers setShipSelected {x y fire angle } {
+	$this(jeu) setShipSelected $x $y $fire $angle
+}
+
 
 method Univers addPlanete { x y radius density} {
   set idPlanete [[$this(parent) get_swl] Add_new_planet $x $y $radius $density]
@@ -37,13 +44,12 @@ method Univers addPlanete { x y radius density} {
 }
 
 method Univers addVaisseau { owner x y radius color} {
-#   set idShip [[$this(parent) get_swl] generate_uid "Vaisseau"]
   #Obtention id avec ajout dans swl
   set idShip [[$this(parent) get_swl] Add_new_ship $owner $x $y $radius]
   #Update du vaisseau dans swl pour crée l'angle et la velocité
   [$this(parent) get_swl] Update_ship $owner $idShip [dict create fire_velocity 30 fire_angle 1]
   #Création de l'agent vaisseau
-  Vaisseau $idShip $owner $objName $idShip
+  Vaisseau $idShip $owner $objName $idShip 30 1
   VaisseauMap ${idShip}_Map [${objName}_A get_canvMap] $idShip $owner $x $y $radius $color
   VaisseauMiniMap ${idShip}_MiniMap [${objName}_A get_canvMini] $idShip $owner $x $y $radius $color
 }

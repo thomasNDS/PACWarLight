@@ -78,7 +78,7 @@ method ToolKit_P startGame { start } {
 method ToolKit_P setShipSelected {x y fire angle } {
 	set  this(angleSelection) $angle
 	set  this(velocitySelection) $fire
-	puts $angle
+	puts $angle $fire
 }
 
 # CONTROLLER ================================================
